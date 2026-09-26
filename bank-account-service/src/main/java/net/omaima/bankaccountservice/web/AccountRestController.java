@@ -4,6 +4,7 @@ import net.omaima.bankaccountservice.entities.BankAccount;
 import net.omaima.bankaccountservice.repositories.BankAccountRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -13,6 +14,11 @@ public class AccountRestController {
 
     public AccountRestController(BankAccountRepository bankAccountRepository){
         this.bankAccountRepository = bankAccountRepository;
+    }
+
+    @GetMapping("/bankAccounts")
+    public List<BankAccount> bankAccount(){
+        return bankAccountRepository.findAll();
     }
 
     @GetMapping("/bankAccounts/{id}")
