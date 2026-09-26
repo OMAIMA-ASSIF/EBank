@@ -3,7 +3,9 @@ package net.omaima.bankaccountservice.web;
 import net.omaima.bankaccountservice.dto.BankAccountRequestDTO;
 import net.omaima.bankaccountservice.dto.BankAccountResponseDTO;
 import net.omaima.bankaccountservice.entities.BankAccount;
+import net.omaima.bankaccountservice.entities.Customer;
 import net.omaima.bankaccountservice.repositories.BankAccountRepository;
+import net.omaima.bankaccountservice.repositories.CustomerRepository;
 import net.omaima.bankaccountservice.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +20,10 @@ import java.util.List;
 public class AccountGraphQLController {
     @Autowired
     BankAccountRepository bankAccountRepository;
+    @Autowired
     BankAccountService accountService;
+    @Autowired
+    CustomerRepository customerRepository;
 
     @QueryMapping
     public List<BankAccount> accountsList(){
@@ -43,6 +48,11 @@ public class AccountGraphQLController {
     public Boolean deleteAccount(@Argument String id){
         bankAccountRepository.deleteById(id);
         return true;
+    }
+
+    @QueryMapping
+    public List<Customer> customers(){
+        return customerRepository.findAll();
     }
 
 
